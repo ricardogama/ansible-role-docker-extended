@@ -1,0 +1,5 @@
+---
+
+docker_config_dir: /root/.docker
+docker_config_owner: root
+docker_config_group: root

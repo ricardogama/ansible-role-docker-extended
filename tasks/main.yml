@@ -1,0 +1,14 @@
+---
+
+- name: Create docker config directory
+  file: path={{ docker_config_dir }} state=directory owner={{ docker_config_owner }} group={{ docker_config_group }}
+  when: docker_config is defined
+
+- name: Create docker config file
+  copy: dest={{ docker_config_dir }}/config.json content={{ docker_config }} owner={{ docker_config_owner }} group={{ docker_config_group }}
+  when: docker_config is defined
+
+- name: Add users to Docker group
+  shell: usermod -a -G docker {{ item }}
+  with_items: "{{ docker_group_users }}"
+  when: docker_group_users is defined
